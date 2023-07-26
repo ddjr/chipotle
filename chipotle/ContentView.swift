@@ -11,61 +11,60 @@ struct ContentView: View {
     @State var showMenuSheet = true
     @State private var selection = 2
     var body: some View {
-        TabView(selection: $selection) {
-            ZStack {
-                Color.blue
-            }
-            .tag(1)
-            ZStack {
-                VStack {
-                    Image("mainBackground")
-                        .resizable()
-                }
-                VStack {
-                    Spacer()
-                    mealsBox
-                    HStack {
-                        Image(systemName: "qrcode")
-                        Text("SCAN IN RESTAURANT")
+            VStack {
+                HStack(alignment: .top) {
+                    if (selection <= 2) {
+                        Text("yes")
+                            .padding(.horizontal, 20)
                     }
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 10)
-                    .background(.white)
-                    .cornerRadius(20)
-                    .padding(.top, 40)
-                    .padding(.bottom, 100)
+                    if(selection == 2) {
+                        Text("Maybe")
+                            .padding(.horizontal, 20)
+                    }
+                    if(selection >= 2) {
+                        Text("no")
+                            .padding(.horizontal, 20)
+                    }
                 }
-            }
-            .tag(2)
-//            .sheet(isPresented: $showMenuSheet) {
-//                Spacer()
-//                HStack(alignment: .top) {
-//                    Text("MENU")
-//                    Spacer()
-//                    Text("FEATURED")
-//                    Spacer()
-//                    Text("ORDERS")
-//                    Spacer()
-//                    Text("REWARDS")
-//                }
-//                .bold()
-//                .padding(.vertical, 30)
-//                .padding(.horizontal, 20)
-//                .font(.body)
-//                .presentationDetents([.height(50.0)])
-//                .interactiveDismissDisabled()
-//                .presentationDragIndicator(.hidden)
-//                .presentationBackgroundInteraction(.enabled)
-//            }
-            ZStack {
-                Color.red
-            }
-            .tag(3)
-            .zIndex(10)
+                .animation(.easeIn, value: selection)
             
+            TabView(selection: $selection) {
+                ZStack {
+                    Color.blue
+                }
+                .tag(1)
+                ZStack {
+                    VStack {
+                        Image("mainBackground")
+                            .resizable()
+                    }
+                    VStack {
+                        Spacer()
+                        mealsBox
+                        HStack {
+                            Image(systemName: "qrcode")
+                            Text("SCAN IN RESTAURANT")
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 10)
+                        .background(.white)
+                        .cornerRadius(20)
+                        .padding(.top, 40)
+                        .padding(.bottom, 100)
+                    }
+                }
+                .tag(2)
+          
+                ZStack {
+                    Color.red
+                }
+                .tag(3)
+                .zIndex(10)
+                
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .background( Color(uiColor: .systemGray4))
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .background( Color(uiColor: .systemGray4))
 
     }
     
@@ -115,3 +114,24 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+//            .sheet(isPresented: $showMenuSheet) {
+//                Spacer()
+//                HStack(alignment: .top) {
+//                    Text("MENU")
+//                    Spacer()
+//                    Text("FEATURED")
+//                    Spacer()
+//                    Text("ORDERS")
+//                    Spacer()
+//                    Text("REWARDS")
+//                }
+//                .bold()
+//                .padding(.vertical, 30)
+//                .padding(.horizontal, 20)
+//                .font(.body)
+//                .presentationDetents([.height(50.0)])
+//                .interactiveDismissDisabled()
+//                .presentationDragIndicator(.hidden)
+//                .presentationBackgroundInteraction(.enabled)
+//            }
